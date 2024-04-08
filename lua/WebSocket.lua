@@ -20,15 +20,15 @@ local ws = function (dict)
 		print(msg)
 	end
 	local server = game:GetService('HttpService')
-	local id = server:GetAsync("https://unisock.seven7four4.repl.co/api/connect/"..btoa(dict.url))
+	local id = server:GetAsync("https://rblx-unisocket3-fork.onrender.com/api/connect/"..btoa(dict.url))
 	local function sendMessage(msg)
 		wait(1)
-		server:GetAsync("https://unisock.seven7four4.repl.co/api/send/"..id.."/"..btoa(msg))
+		server:GetAsync("https://rblx-unisocket3-fork.onrender.com/api/send/"..id.."/"..btoa(msg))
 	end
 	
 	local loop = coroutine.create(function()
 		while wait(50 / 1000) do 
-			local msg = server:GetAsync("https://unisock.seven7four4.repl.co/api/poll/"..id)
+			local msg = server:GetAsync("https://rblx-unisocket3-fork.onrender.com/api/poll/"..id)
 			if notExists(messages, msg) then
 				table.insert(messages, msg)
 				if notEmpty(msg) then
