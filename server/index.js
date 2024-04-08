@@ -11,6 +11,7 @@ app.get('/api/connect/:url', (req, res) => {
     ws_[id] = {};
     ws_[id].message = "";
     ws_[id].connection = new WebSocket(atob(req.params.url));
+    ws_[id].connection.setMaxListeners(0)
     ws_[id].connection.on('message', function(data) {
         ws_[id].message = data;
     })
@@ -50,7 +51,9 @@ app.get("/api/send/:id/:data", (req, res) => {
 app.get("/api/poll/:id", (req, res) => {
     var socket = ws_[req.params.id];
     if (!/^\s*$/.test(socket.message.toString())) {
-        res.send(socket.message);
+        res.send(socket.message.toString());
+    } else {
+        res.send('');
     }
 })
 
